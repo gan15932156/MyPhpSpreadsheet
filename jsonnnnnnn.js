@@ -8,7 +8,7 @@ $(document).ready(function(){
    console.clear()
 
    jsonData.key_object.forEach(function(element){
-      $("#fields").append("<option value='"+element+"'>"+element+"</option>");
+      $("#fields").append(" <span draggable='true' class='badge badge-primary'>"+element+"</span>");
    });
 
    //console.log(jsonData)
@@ -18,25 +18,23 @@ $(document).ready(function(){
    });
 
    $("#show_subtotal").click(function(){
-
       populate_table_sub_total(jsonData,"table_div");
-
       //console.log(selected_value)
    });
 
-   $('#fields').multiselect({
+   // $('#fields').multiselect({
 
-      nonSelectedText:'เลือกฟีลด์',
-      buttonWidth:'50vw',
-      enableFiltering: true,
-      enableCaseInsensitiveFiltering: true,
+   //    nonSelectedText:'เลือกฟีลด์',
+   //    buttonWidth:'50vw',
+   //    enableFiltering: true,
+   //    enableCaseInsensitiveFiltering: true,
 
-      onChange:function(option, checked){
-        var selected = this.$select.val();
-        //console.log(selected);
-        selected_value = selected;
-      }
-   });
+   //    onChange:function(option, checked){
+   //      var selected = this.$select.val();
+   //      //console.log(selected);
+   //      selected_value = selected;
+   //    }
+   // });
 
 
    function populate_table(json_data,id){

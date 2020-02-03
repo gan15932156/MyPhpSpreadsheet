@@ -74,8 +74,7 @@
                   <lable >choose field</label>
                </div>
                <div class="col-md-9">
-                  <select name="fields" id="fields" class="form-control" multiple>
-                  </select>
+                 <div id="fields"></div>
                </div>
             </div>
             
