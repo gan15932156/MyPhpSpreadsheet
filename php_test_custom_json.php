@@ -7,7 +7,7 @@ $table_class = new stdClass();
 
 $response = array();
 
-$tb_name = "test_json";
+$tb_name = "tb_test_sale_excel";
 
 $sql = "SELECT * FROM `data_dic_ref` WHERE `tb_ref_name` = "."'".$tb_name."'";
 

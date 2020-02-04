@@ -24,39 +24,16 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" />
 
-
-
-
+<!-- font-awesome -->
+    <script src="https://kit.fontawesome.com/e79338ce35.js" crossorigin="anonymous"></script>
+ <script type="text/javascript" src="jsonnnnnnn.js"></script>
    <style>
       *{
          margin : 0;
          padding : 0;
       }
-            table{ 
-               border:1px solid gray;
-               font-family:calibri,verdana,arial;
-               float:none;
-               margin:auto; 
-            }
-            th{
-               background:gray;
-               color:white;
-               padding:0.5rem;
-            }
-            td{
-               padding:0.5rem;
-               border:1px dotted gray;
-            }
-            td[colspan]{
-               background:whitesmoke;
-            }
-            .currency:before{
-                content:'<?=$symbol;?>';
-                color:green;
-                font-weight:bold;
-            }
         </style>
-      <script src="jsonnnnnnn.js"></script>
+      
 </head>
 <body>
 <div class="container">
@@ -66,7 +43,7 @@
             <div class="row">
                <div class="col-md-12" align="center"><br><br>
                   <button id="test_ajax" class="btn btn-success">Show table</button>
-                  <button id="show_subtotal" class="btn btn-success">show_subtotal</button>
+                  <!-- <button id="show_subtotal" class="btn btn-success">show_subtotal</button> -->
                </div>
             </div><br>
             <div class="row">
@@ -77,14 +54,20 @@
                  <div id="fields"></div>
                </div>
             </div>
-            
-  
-            <br><br>
-               <div id="table_div"> </div>
+            <br>
+               
          </div>
          <div class="col-md-1"></div>
       </div>
+      <div class="row">
+      <div id="table_div" style="width:100vw;"> </div>
+      </div>
    </div>
-  
+
+   
+  <div class="test">
+         <input type="text" id="test_array" placeholder="testttttt"> 
+         <button id="btn_sub">sibmit</button>
+  </div>
 </body>
 </html>

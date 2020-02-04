@@ -1,26 +1,52 @@
 $(document).ready(function(){
-   
+
+
    var jsonData;
-   var selected_value;
+
    jsonData = getDataJson($(this).val());
 
    
    console.clear()
 
+   console.log(jsonData)
+
+   $("#btn_sub").click(function(){
+      
+      let arr = [
+         { name:"string 1", value:"this", other: "that" },
+         { name:"string 2", value:"this", other: "that" }
+     ];
+     
+     let obj =jsonData.new_json_data.find(o => o[0]   == $("#test_array").val());
+     
+     console.log(obj);
+   })
+
+
    jsonData.key_object.forEach(function(element){
       $("#fields").append(" <span draggable='true' class='badge badge-primary'>"+element+"</span>");
    });
 
-   //console.log(jsonData)
-
    $("#test_ajax").click(function(){
-      populate_table(jsonData,"table_div");
+      populate_table(jsonData,"table_div");   
    });
 
    $("#show_subtotal").click(function(){
       populate_table_sub_total(jsonData,"table_div");
-      //console.log(selected_value)
    });
+
+   document.querySelectorAll('#table_div').forEach(item => {
+      item.addEventListener('click', event => {
+
+         console.clear()
+
+         if(jsonData.key_object.includes(event.target.innerText)){
+
+            console.log(jsonData.clear_value[event.target.innerText])
+
+         }
+      })
+    })
 
    // $('#fields').multiselect({
 
@@ -36,47 +62,48 @@ $(document).ready(function(){
    //    }
    // });
 
-
    function populate_table(json_data,id){
 
-      const sd = document.getElementById(id)
+      const sd = document.getElementById(id) 
 
-      let table = "<table><thead><tr>";
+      let table = '<table class="table table-striped"><thead><tr>';
 
       json_data.key_object.forEach(function(element){
-         table+= "<th>"+element+"</th>"; 
+         table+= '<th><span id="field_data"> '+element+'</span></th>'; 
       });
 
-      table+="</tr></thead><tbody>";
+      table+='</tr></thead><tbody>';
 
       for(let j = 0 ; j <= json_data.new_json_data.length -1 ; j++){
 
-         table+="<tr>";
+         table+='<tr>';
 
          for(let k = 0 ; k <= json_data.key_object.length -1 ; k++){
 
-            table+="<td>"+json_data.new_json_data[j][json_data.key_object[k]]+"</td>";
+            table+='<td>'+json_data.new_json_data[j][json_data.key_object[k]]+'</td>';
 
          }
 
-         table+="</tr>";
+         table+='</tr>';
       }
 
-      table+="</tbody></table>";
+      table+='</tbody></table>';
 
       sd.innerHTML = table;
-   }
 
+      
+   }
+  
    function populate_table_sub_total(json_data,id){
 
       const sd = document.getElementById(id)
 
-      let table = "<table><thead><tr>";
+      let table = "<table class='table table-striped'><thead><tr>";
 
       let table_obj = new Object();
 
       json_data.key_object.forEach(function(element){
-         table+= "<th>"+element+"</th>"; 
+         table+= "<th>"+element+" </th>"; 
       });
 
       table+="</tr></thead><tbody>";
