@@ -3,19 +3,31 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unbenanntes Dokument</title>
+      
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <div id="Mydiv">anything</div>
+    
 
     <script>
-     function test(x){
-        alert(x)
-      };
-     var col=document.getElementById('Mydiv');
-     
-     var adsada = 55555;
-     col.innerHTML='<div onclick="alert('+adsada+');test('+adsada+');">Text</div>';
+
+      $.getJSON( "tb_test_sale_excel.json", function( data ) {
+        var items = [];
+        console.log(data.slice)
+        console.log(data.options)
+      });
     </script>
+
+
+
+    <div class="json">
+
+    </div>
+
+    <button ></button>
   </body>
 </html>
