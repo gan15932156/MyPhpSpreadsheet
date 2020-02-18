@@ -10,6 +10,7 @@
       for($i = 1 ; $i <= $hrow ; $i++){
 
          if($i == 1){
+
             for($j = 0 ; $j <= $hcol ; $j++){
 
                $data = $file_data->getCellByColumnAndRow($j, $i)->getValue();
@@ -19,9 +20,9 @@
                array_push($header_data,$data);
             }
          }
-         else{
+         else{ 
             for($j = 0 ; $j <= $hcol ; $j++){
-               
+
                $data = $file_data->getCellByColumnAndRow($j, $i)->getValue();
 
                array_push($row_data_obj ->{$header_data[$j]},$data);
@@ -35,13 +36,44 @@
 
       $html = ''; 
       
-      $count_col = count((array) $data);
+      $array_parse = get_object_vars($data);
 
-      return $html=  (array) $data;
+      $key_obj = array_keys($array_parse);
+
+      $row_count = count($data->{$key_obj[0]});
+
+      $html.= '<table class="table table-sm table-bordered"><thead>';
+
+      $html.='<tr>';
+
+      foreach($key_obj as $header){
+         $html.='<th><input class="checkcol" type="checkbox" id="checkcol" name="checkcol[]" value="'.$header.'">   '.$header.'</th>';
+      }
+
+      $html.='</tr></thead><tbody>';
+
+      for($i = 0 ; $i <= $row_count-1 ; $i++){
+
+         $html.='<tr>';
+
+         for($j = 0 ; $j <= count($key_obj)-1 ; $j++){
+            //echo $data->{$key_obj[$j]}[$i]." ";
+            $html.='<td class="'.$key_obj[$j].'">'.$data->{$key_obj[$j]}[$i].'</td>';
+         }
+
+         $html.='</tr>';
+      }
+
+      $html.= '<tbody></table>';
+
+
+      return $html;
    }
 
    require_once $_SERVER['DOCUMENT_ROOT']."/MyPhpSpreadsheet/lib/PHPExcel-1.8/Classes/PHPExcel.php"; //เรียกใช้ไลบรารี่ PHPExcel
  
+   $response  = array();
+
    if(!empty($_FILES['file_input'])){
  
       $file_array = explode(".", $_FILES["file_input"]["name"]);
@@ -68,14 +100,18 @@
          
          $result_data = get_data($objWorksheet, $highestRow,$highestColumnIndex);
 
-         echo show_result($result_data);
+         $response['result_table'] = show_result($result_data);
+         $response['raw_data'] = $result_data;
+         $response['error'] = false;
 
       }
       else{
-         echo 'fail';
+         $response['error'] = true;
       }
    }
    else{
-      echo 'fail';
+      $response['error'] = true;
    }
+
+   echo json_encode($response);
 ?>
