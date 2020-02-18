@@ -59,6 +59,7 @@
 
          var raw_data;
 
+         // field sample
          var json_select1 = {
             h2: "ID",
             h1: "Title",
@@ -68,10 +69,13 @@
             h6: "Type",
             h7: "Awards"
          }
+
+         // input file change
          $("#file_input").change(function(){
             $("#form_input").submit();
          });
 
+         // submit form upload
          $('#form_input').on('submit',function(event){
 
             event.preventDefault(); 
@@ -86,58 +90,82 @@
                async: false,
                success:function(data){ 
 
+                  // raw data
                   raw_data = data.raw_data;
                   
+                  // table html code
                   $(".result").html(data.result_table);
                }  
             }); 
          })
 
+         // on checkbox click (Table header)
          $(document).on("click",".checkcol",function(){
 
+            // check header is checked
             if( $(this).is(':checked') ) {
               
+               // change background color
                $(this).parent().css("background-color", "lightgreen");
                $('td[class="'+$(this).val()+'"]').css("background-color", "lightgreen");
 
+               // set check each field table (Task)
                $('input[value="'+$(this).val()+'"]').prop("checked", true);
             }
             else {
                $(this).parent().css("background-color", "");
                $('td[class="'+$(this).val()+'"]').css("background-color", "");
 
+               // set uncheck
                $('input[value="'+$(this).val()+'"]').prop("checked", false);
             }
 
          })
 
+         // submit file (Confirm upload file)
          $("#btn_submit").click(function(){
+
+            // object data selected fields
             let dadadsadad = new Object();
+
+            // value in checkbox (Field name)
             let id = [];
 
+            // get all value in checked (Field name)
             $('.checkcol:checkbox:checked').each(function(i){
                id[i] = $(this).val();
             });
 
+            // count checked field template (From database)
             let col_template_count = $('.check_row_template').length;
 
+            // count checked field Table (From user upload)
             let col_file_checked_count = $('.checkcol:checkbox:checked').length;
             
-          /*  if(col_template_count != col_file_checked_count){
+            // check if equal ถ้าผู้ใช้เลือกฟีลด์ตรงตามงาน
+            if(col_template_count != col_file_checked_count){
                alert("please select")
             }
-            else{*/
+            else{
+
+               // Loop user fields selected
                id.forEach(function(key) {
-                  dadadsadad[key] = raw_data[ key];
-                  //dadadsadad.push(raw_data[ key]);
+
+                  // populate data each field (From user selected)
+                  dadadsadad[key] = raw_data[key];
                })
                console.log(dadadsadad)
-           /* }*/
+            }
             
          }) 
 
+         // on Task(ตารางงาน) selectbox change
          $("#select_task").change(function(){
+
+            // HTML code
             html= '';
+
+            
             if($(this).val() == "task1"){
                
                Object.keys(json_select1).forEach(function(key) {
@@ -155,6 +183,7 @@
             }
             
             $(".result_template").html(html);
+            
          });
 
       })
