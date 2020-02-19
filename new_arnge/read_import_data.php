@@ -30,9 +30,38 @@
 
             for($j = 0 ; $j <= $hcol ; $j++){
 
+               // get value in cell
                $data = $file_data->getCellByColumnAndRow($j, $i)->getValue();
 
-               array_push($row_data_obj ->{$header_data[$j]},$data);
+               // get object in cell
+               $data_obj = $file_data->getCellByColumnAndRow($j, $i);
+
+               if($data != NULL || $data != ''){ //ตรวจสอบเมื่อค่าในตัวแปร data ไม่ว่าง
+
+                  // check date 
+                  if(PHPExcel_Shared_Date::isDateTime($data_obj)){
+
+                     // parse to Date
+                     $date_data = date($format = "d/m/Y", PHPExcel_Shared_Date::ExcelToPHP($data));
+                     
+                     // push data
+                     array_push($row_data_obj ->{$header_data[$j]},$date_data);
+                  }
+                  else{
+                     array_push($row_data_obj ->{$header_data[$j]},$data);
+                  }
+               }  
+               else{
+                  
+                  // check null value is equal 0
+                  if(strval($data) == '0'){
+                     array_push($row_data_obj ->{$header_data[$j]},'0');
+                  }
+                  else{
+                     array_push($row_data_obj ->{$header_data[$j]},strval($data));
+                  }
+                   
+               }
             }
          }
       }
