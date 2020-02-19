@@ -157,7 +157,7 @@
             
             // check if equal ถ้าผู้ใช้เลือกฟีลด์ตรงตามงาน
             if(col_template_count != col_file_checked_count){
-               alert("please select")
+               
             }
             else{
 
