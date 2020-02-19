@@ -63,7 +63,6 @@
          $html.='<th><input class="checkcol" type="checkbox" id="checkcol" name="checkcol[]" value="'.$header.'">   '.$header.'</th>';
       }
 
-
       $html.='</tr></thead><tbody>';
 
       // Populate data
@@ -79,7 +78,6 @@
       }
 
       $html.= '<tbody></table>';
-
 
       return $html;
    }

@@ -1,3 +1,4 @@
+<?php require_once("configDB.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +18,22 @@
             <br>
             <form class="form-inline" id="form_input">
                <div class="form-group">
+               <?php   
+               $sql = 'SELECT * FROM `task_user` WHERE `user_id` = 3';
+                        $conn = $DBconnect;
+                        //echo $sql; ?>
                   <select class="form-control" name="select_task" id="select_task">
                      <option value="null_val">เลือกงาน</option>
+                     <?php
+                        $result = mysqli_query($conn,$sql);
+                        while($row = mysqli_fetch_row($result)){
+                           echo '<option value="'.$row[0].'">'.$row[2].'</option>';
+                        }
+                     ?>
+                     <!-- <option value="null_val">เลือกงาน</option>
                      <option value="task1">task1</option>
                      <option value="task2">task2</option>
-                     <option value="task3">task3</option>
+                     <option value="task3">task3</option> -->
                   </select>
                   <input type="file" id="file_input" name="file_input" class="form-control mx-sm-3">
                   <input value="ส่ง" type="button" name="btn_submit" class="btn btn-success" id="btn_submit">
@@ -156,12 +168,13 @@
                   dadadsadad[key] = raw_data[key];
                })
  
- 
-
                $.ajax({  
                   url:"get_upload_data.php", 
                   method:"POST",  
-                  data:{ data: JSON.stringify(dadadsadad) },  
+                  data:{ 
+                     data: JSON.stringify(dadadsadad) ,
+                     task_name : task_name
+                  },  
                   dataType: 'JSON', 
                   async: false,
                   success:function(data){ 
@@ -176,24 +189,33 @@
          // on Task(ตารางงาน) selectbox change
          $("#select_task").change(function(){
 
+            // clear checkbox div
+            $(".result_template").empty();
+
             // HTML code
             html= '';
+            
+            if($(this).val() != "null_val"){
 
-            if($(this).val() == "task1"){
-               
-               Object.keys(json_select1).forEach(function(key) {
-                  html+= '<input class="check_row_template" type="checkbox" id="check_row_template" name="check_row_template[]" value="'+json_select1[key]+'" disabled="disabled" readonly >  <span>'+json_select1[key]+'</span><br>';
-               })
+               $.ajax({  
+                  url:"get_tempalte_task.php", 
+                  method:"POST",  
+                  data:{ 
+                    task_id:$(this).val()
+                  },  
+                  dataType: 'JSON', 
+                  async: false,
+                  success:function(data){ 
+                     if(!data.error){
+                        html = data.result;
+                     }
+                     else{
+                        alert(data.message)
+                     }
+                  }  
+               }); 
             }
-            else if($(this).val() == "task2"){
-               //alert("Adasdasd2")
-            }
-            else if($(this).val() == "task3"){
-               //alert("Adasdasd3")
-            }
-            else{
-               //alert("please sdasdkasldkask")
-            }
+ 
             
             $(".result_template").html(html);
             
