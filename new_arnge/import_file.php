@@ -125,6 +125,7 @@
          // submit file (Confirm upload file)
          $("#btn_submit").click(function(){
 
+            var task_name = $("#select_task").val();
             // object data selected fields
             let dadadsadad = new Object();
 
@@ -154,7 +155,20 @@
                   // populate data each field (From user selected)
                   dadadsadad[key] = raw_data[key];
                })
-               console.log(dadadsadad)
+ 
+ 
+
+               $.ajax({  
+                  url:"get_upload_data.php", 
+                  method:"POST",  
+                  data:{ data: JSON.stringify(dadadsadad) },  
+                  dataType: 'JSON', 
+                  async: false,
+                  success:function(data){ 
+                     console.log(data)
+                  }  
+               }); 
+                
             }
             
          }) 
@@ -165,7 +179,6 @@
             // HTML code
             html= '';
 
-            
             if($(this).val() == "task1"){
                
                Object.keys(json_select1).forEach(function(key) {
@@ -173,13 +186,13 @@
                })
             }
             else if($(this).val() == "task2"){
-               alert("Adasdasd2")
+               //alert("Adasdasd2")
             }
             else if($(this).val() == "task3"){
-               alert("Adasdasd3")
+               //alert("Adasdasd3")
             }
             else{
-               alert("please sdasdkasldkask")
+               //alert("please sdasdkasldkask")
             }
             
             $(".result_template").html(html);
