@@ -11,8 +11,8 @@
 <body>
    <div class="container"><br>
       <div class="row">
-         <a href="https://www.w3schools.com/howto/howto_js_accordion.asp">https://www.w3schools.com/howto/howto_js_accordion.asp</a>
-       
+ 
+         <a href="https://jsfiddle.net/p9mtqhm7/52/">https://jsfiddle.net/p9mtqhm7/52/</a>
       </div>  <br>
       <!-- <div class="row">
 
@@ -53,11 +53,19 @@
 
          while($row = mysqli_fetch_row($result)){
 
-            $html .='<tr class="breakrow" data_wbs="'.$row[1].'"><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
-            $html .='<tr style="background-color:pink;" id="'.$row[1].'"><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
-            
+            if($row[1] == ""){
+               $html .='<tr class="header" data_wbs="null_value"><td><span>+</span></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+               $html .='<tr style="background-color:pink;display:none;" id="null_valuey" ><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+               $html .='<tr style="background-color:pink;display:none;" id="null_valuey" ><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+               $html .='<tr style="background-color:pink;display:none;" id="null_valuey" ><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+               $html .='<tr style="background-color:pink;display:none;" id="null_valuey" ><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+            }
+            else{
+               $html .='<tr class="header" data_wbs="'.$row[1].'"><td><span>+</span></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+               $html .='<tr style="background-color:pink;display:none;" id="'.$row[1].'" ><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+               $html .='<tr style="background-color:pink;display:none;" id="null_valuey" ><td></td><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>';
+            }
 
-          
             $count+=$row[0];
          }
 
@@ -72,66 +80,28 @@
    <style>
       .tb{
          width:50vw;
-      }
-     /* .accordion {
-         background-color: #eee;
-         color: #444;
-         cursor: pointer;
- 
-         width: 100%;
-         border: none;
-         text-align: left;
-         outline: none;
-         font-size: 15px;
-         transition: 0.4s;
-      }
-
-      .active, .accordion:hover {
-      background-color: #ccc; 
-      }
-
-      .panel {
-         padding: 0 18px;
-         display: none;
-         background-color: white;
-         overflow: hidden;
-         transition: max-height 0.2s ease-out;
-      }
-      .accordion_symbol:before {
-         content: '\02795'; 
-         font-size: 13px;
-         color: #777;
-         float: left;
-         margin-left: 5px;
-      } */
-
-      /* .active:before {
-         content: "\2796";  
-      } */
+      }tr.header
+{
+    cursor:pointer;
+}
+    
    </style>
 
 
    <script>
 
-   
+      //REF https://jsfiddle.net/p9mtqhm7/52/
 
       $(document).ready(function(){
-         // var acc = document.getElementsByClassName("accordion");
-         // var i;
 
-         // for (i = 0; i < acc.length; i++) {
-         // acc[i].addEventListener("click", function() {
-         //    this.classList.toggle("active");
-         //    var panel = this.nextElementSibling;
-         //    if (panel.style.display === "block") {
-         //       panel.style.display = "none";
-         //    } else {
-         //       panel.style.display = "block";
-         //    }
+
+         $('tr.header').click(function(){
+
+            $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
             
-         // });
-         // }
-         
+            $(this).nextUntil('tr.header').slideToggle(50);
+         });
+
 
          var key_wbs = new Object();
 
