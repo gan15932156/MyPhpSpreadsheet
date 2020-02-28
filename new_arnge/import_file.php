@@ -13,7 +13,7 @@
 <body>
 
    <div class="container-fluid">
-      <div class="row">
+      <div class="row"> 
          <div class="col-md-3">
             <br>
             <form class="form-inline" id="form_input">
@@ -44,7 +44,7 @@
          </div>
       </div>
       <div class="row">
-         <div class="col-md-1"></div>
+         <div class="col-md-1"><br></div>
          <div class="col-md-9">
             <br>
 
@@ -55,12 +55,18 @@
                   border:1px solid red;
                   overflow:auto;
                }
- 
+               .result_template{
+                  width:100%;
+                  height:80vh;
+                  border:1px solid red;
+                  overflow:auto;
+               }
             </style>
             <div class="result">
             </div>
          </div>
          <div class="col-md-2">
+         <br>
             <div class="result_template"></div>
          </div>
       </div>

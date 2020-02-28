@@ -21,6 +21,7 @@
                <br>
                <a class="btn btn-primary" href="import_file.php">Import file</a>
                <a class="btn btn-primary" href="condition_builder.php">เงื่อนไข</a>
+               <a class="btn btn-primary" href="test.php">testttttt</a>
             </div>
          </div>
       </div>
