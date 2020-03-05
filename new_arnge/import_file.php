@@ -253,6 +253,7 @@
             });
 
             if(missing_fields != ''){
+               $("#check_field_all").prop("checked", false);
                alert("ไม่พบหัวข้อ\n"+missing_fields)
             }
              
