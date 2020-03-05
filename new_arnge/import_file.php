@@ -37,6 +37,8 @@
                   </select>
                   <input type="file" id="file_input" name="file_input" class="form-control mx-sm-3">
                   <input value="ส่ง" type="button" name="btn_submit" class="btn btn-success" id="btn_submit">
+                  <label class="mx-sm-3">Check all</label>
+                  <input type="checkbox" id="check_field_all">
                </div>
               
             </form>
@@ -90,7 +92,9 @@
 
          // input file change
          $("#file_input").change(function(){
+
             $("#form_input").submit();
+
          });
 
          // submit form upload
@@ -121,20 +125,33 @@
          $(document).on("click",".checkcol",function(){
 
             // check header is checked
-            if( $(this).is(':checked') ) {
+            if( $(this).is(':checked')) {
               
-               // change background color
-               $(this).parent().css("background-color", "lightgreen");
-               $('td[class="'+$(this).val()+'"]').css("background-color", "lightgreen");
+               if($(this).val() == $('input[class="check_row_template"][value="'+$(this).val()+'"]').val()){
 
-               // set check each field table (Task)
-               $('input[value="'+$(this).val()+'"]').prop("checked", true);
+                  $(this).parent().css("background-color", "#00FF66 ");
+
+                  $('td[class="'+$(this).val()+'"]').css("background-color", "#00FF66 ");
+
+                  // set check each field table (Task)
+                  $('input[value="'+$(this).val()+'"]').prop("checked", true);
+               }
+               else{
+           
+                  $('input[value="'+$(this).val()+'"]').prop("checked", false);
+
+                  $(this).parent().css("background-color", "#FF3F3F");
+
+                  $('td[class="'+$(this).val()+'"]').css("background-color", "#FF3F3F");
+               }
+              
             }
             else {
+ 
                $(this).parent().css("background-color", "");
+
                $('td[class="'+$(this).val()+'"]').css("background-color", "");
 
-               // set uncheck
                $('input[value="'+$(this).val()+'"]').prop("checked", false);
             }
 
@@ -192,12 +209,62 @@
             
          }) 
 
+         $("#check_field_all").click(function(){
+
+            let null_fields = [];
+            let missing_fields = '';
+
+            if($(this).is(':checked')){
+
+               $(".check_row_template").each(function(val){
+                  
+                  if($('.checkcol[value="'+$(this).val()+'"]').val() == $(this).val()){
+
+                     $('.checkcol[value="'+$(this).val()+'"]').parent().css("background-color", "#00FF66 ");
+
+                     $('td[class="'+$(this).val()+'"]').css("background-color", "#00FF66 ");
+
+                     $('input[value="'+$(this).val()+'"]').prop("checked", true);
+                  }
+                  else{
+                     null_fields.push($(this).val());
+                  }
+                 
+               });
+            }
+            else{
+
+               $(".check_row_template").each(function(val){
+
+                  $('.checkcol[value="'+$(this).val()+'"]').parent().css("background-color", "");
+
+                     $('td[class="'+$(this).val()+'"]').css("background-color", "");
+
+                     $('input[value="'+$(this).val()+'"]').prop("checked", false);
+
+                     null_fields.pop();
+               });
+            }
+            
+            Object.keys(null_fields).forEach(function (item) {
+
+               missing_fields+=null_fields[item]+"\n";
+                
+            });
+
+            if(missing_fields != ''){
+               alert("ไม่พบหัวข้อ\n"+missing_fields)
+            }
+             
+         });
          // on Task(ตารางงาน) selectbox change
          $("#select_task").change(function(){
 
             // clear checkbox div
             $(".result_template").empty();
-
+            $(".result").empty();
+            $("#file_input").val(null);
+            $("#check_field_all").prop("checked", false);
             // HTML code
             html= '';
             
